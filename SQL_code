@@ -7,12 +7,14 @@ End Sub
 
 Private Sub Command10_Click()
 'Allowing users to delete a preferred row with user input
-DoCmd.RunSQL "DELETE FROM " + Forms!work_with_table!Text11 + " WHERE (" + Forms!work_with_table!Text13 + "=" + Forms!work_with_table!Text15 + ")"
+DoCmd.RunSQL "DELETE FROM " + Forms!work_with_table!Text11 + " WHERE (" + Forms!work_with_table!Text13 + "=" + 
+              Forms!work_with_table!Text15 + ")"
 End Sub
 
 Private Sub Command17_Click()
 'Allowing users to add a column with preferred name to a preferred table with user input
-DoCmd.RunSQL "ALTER TABLE " + Forms!work_with_table!Text18 + " ADD COLUMN [" + Forms!work_with_table!Text20 + "] " + Forms!work_with_table!Text22
+DoCmd.RunSQL "ALTER TABLE " + Forms!work_with_table!Text18 + " ADD COLUMN [" + Forms!work_with_table!Text20 
+              + "] " + Forms!work_with_table!Text22
 End Sub
 
 Private Sub Command24_Click()
@@ -22,13 +24,15 @@ End Sub
 
 Private Sub Command27_Click()
 'Alloing users to update a preferred value in a preferred table with user input
-DoCmd.RunSQL "UPDATE " + Forms!work_with_table!Text28 + " SET " + Forms!work_with_table!Text30 + "=" + Forms!work_with_table!Text32 + 
-             " WHERE ([" + Forms!work_with_table!Text34 + "]='" + Forms!work_with_table!Text36 + "')"
+DoCmd.RunSQL "UPDATE " + Forms!work_with_table!Text28 + " SET " + Forms!work_with_table!Text30 + "=" 
+              + Forms!work_with_table!Text32 + " WHERE ([" + Forms!work_with_table!Text34 + "]='" + 
+              Forms!work_with_table!Text36 + "')"
 End Sub
 
 Private Sub Command3_Click()
 'Allowing users to insert a preferred row into a preferred table with user input
-DoCmd.RunSQL "INSERT INTO " + Forms!work_with_table!Text4 + " (" + Forms!work_with_table!Text6 + ") VALUES ('" + Forms!work_with_table!Text8 + "')"
+DoCmd.RunSQL "INSERT INTO " + Forms!work_with_table!Text4 + " (" + Forms!work_with_table!Text6 + ") 
+              VALUES ('" + Forms!work_with_table!Text8 + "')"
 End Sub
 
 
@@ -36,32 +40,37 @@ End Sub
 
 Private Sub Command0_Click()
 'Creating a table with unique host information
-DoCmd.RunSQL "SELECT DISTINCT host_id AS id, host_name, host_since, host_response_time, host_response_rate, host_acceptance_rate, host_is_superhost, 
-              host_has_profile_pic, host_identity_verified INTO unique_host_info FROM host_info"
+DoCmd.RunSQL "SELECT DISTINCT host_id AS id, host_name, host_since, host_response_time, host_response_rate, 
+              host_acceptance_rate, host_is_superhost, host_has_profile_pic, host_identity_verified 
+              INTO unique_host_info FROM host_info"
 End Sub
 
 Private Sub Command10_Click()
 'Looking at how many hosts have a 90% or higher accenptance rate
-DoCmd.RunSQL "SELECT COUNT(host_acceptance_rate) AS ninety_percent_and_higher INTO acceptance_over_ninety_percent FROM unique_host_info 
-             HAVING host_acceptance_rate LIKE '[9]*' OR '[100]'"
+DoCmd.RunSQL "SELECT COUNT(host_acceptance_rate) AS ninety_percent_and_higher 
+              INTO acceptance_over_ninety_percent FROM unique_host_info HAVING host_acceptance_rate 
+              LIKE '[9]*' OR '[100]'"
 End Sub
 
 Private Sub Command11_Click()
 'Looking at how many super hosts have profile pictures and are verified
-DoCmd.RunSQL "SELECT host_name, host_since, host_response_time, host_response_rate, host_acceptance_rate INTO superhost_verified_pic FROM unique_host_info 
-              WHERE host_identity_verified = 't' AND host_is_superhost = 't' AND host_has_profile_pic = 't' ORDER BY host_name"
+DoCmd.RunSQL "SELECT host_name, host_since, host_response_time, host_response_rate, host_acceptance_rate 
+              INTO superhost_verified_pic FROM unique_host_info WHERE host_identity_verified = 't' 
+              AND host_is_superhost = 't' AND host_has_profile_pic = 't' ORDER BY host_name"
 End Sub
 
 Private Sub Command2_Click()
 'Looking at the years hosts started posting on Airbnb and the number & percentage of hosts in each year
-DoCmd.RunSQL "SELECT YEAR(host_since) AS start_year, COUNT(host_since) AS number_of_hosts, ROUND(number_of_hosts / total_number * 100, 2) AS percentage 
-             INTO host_start_year FROM unique_host_info GROUP BY YEAR(host_since)"
+DoCmd.RunSQL "SELECT YEAR(host_since) AS start_year, COUNT(host_since) AS number_of_hosts, 
+              ROUND(number_of_hosts / total_number * 100, 2) AS percentage INTO host_start_year 
+              FROM unique_host_info GROUP BY YEAR(host_since)"
 End Sub
 
 Private Sub Command3_Click()
 'Looking at the number & percentage of hosts within each response time
-DoCmd.RunSQL "SELECT host_response_time, COUNT(host_response_time) AS number_of_hosts, ROUND(number_of_hosts / total_number * 100, 2) AS percentage 
-              INTO host_response_time FROM unique_host_info GROUP BY host_response_time"
+DoCmd.RunSQL "SELECT host_response_time, COUNT(host_response_time) AS number_of_hosts, 
+              ROUND(number_of_hosts / total_number * 100, 2) AS percentage INTO host_response_time 
+              FROM unique_host_info GROUP BY host_response_time"
 End Sub
 
 Private Sub Command4_Click()
@@ -71,20 +80,22 @@ End Sub
 
 Private Sub Command7_Click()
 'Looking at the number & percentage of hosts within each response rate
-DoCmd.RunSQL "SELECT host_response_rate, COUNT(host_response_rate) AS number_of_hosts, ROUND(number_of_hosts / total_number * 100, 2) AS percentage 
-              INTO host_response_rate FROM unique_host_info GROUP BY host_response_rate"
+DoCmd.RunSQL "SELECT host_response_rate, COUNT(host_response_rate) AS number_of_hosts, 
+              ROUND(number_of_hosts / total_number * 100, 2) AS percentage INTO host_response_rate 
+              FROM unique_host_info GROUP BY host_response_rate"
 End Sub
 
 Private Sub Command8_Click()
 'Looking at how many hosts have 90% or higher response rate
-DoCmd.RunSQL "SELECT COUNT(host_response_rate) AS ninety_percent_and_higher INTO response_over_ninety_percent FROM unique_host_info HAVING host_response_rate 
-              LIKE '[9]*' OR '[100]'"
+DoCmd.RunSQL "SELECT COUNT(host_response_rate) AS ninety_percent_and_higher INTO response_over_ninety_percent 
+              FROM unique_host_info HAVING host_response_rate LIKE '[9]*' OR '[100]'"
 End Sub
 
 Private Sub Command9_Click()
 'Looking at the number & percentage of hosts within each acceptance rate
-DoCmd.RunSQL "SELECT host_acceptance_rate, COUNT(host_acceptance_rate) AS number_of_hosts, ROUND(number_of_hosts / total_number * 100, 2) AS percentage 
-              INTO host_acceptance_rate FROM unique_host_info GROUP BY host_acceptance_rate"
+DoCmd.RunSQL "SELECT host_acceptance_rate, COUNT(host_acceptance_rate) AS number_of_hosts, 
+              ROUND(number_of_hosts / total_number * 100, 2) AS percentage INTO host_acceptance_rate 
+              FROM unique_host_info GROUP BY host_acceptance_rate"
 End Sub
 
 
@@ -92,38 +103,45 @@ End Sub
 
 Private Sub Command0_Click()
 'Looking at the price for one bedroom in each property
-DoCmd.RunSQL "SELECT property_name, property_location, property_type, bedrooms, price, ROUND(price / bedrooms, 2) AS price_per_bedroom INTO price_per_bedroom FROM property_info"
+DoCmd.RunSQL "SELECT property_name, property_location, property_type, bedrooms, price, ROUND(price / bedrooms, 2) 
+              AS price_per_bedroom INTO price_per_bedroom FROM property_info"
 End Sub
 
 Private Sub Command1_Click()
 'Looking at the minimum expense for each property
-DoCmd.RunSQL "SELECT property_name, property_location, property_type, price, minimum_nights, (price * minimum_nights) AS minimum_expense INTO minimum_expense FROM property_info"
+DoCmd.RunSQL "SELECT property_name, property_location, property_type, price, minimum_nights, 
+              (price * minimum_nights) AS minimum_expense INTO minimum_expense FROM property_info"
 End Sub
 
 Private Sub Command2_Click()
 'Looking at the highest price for each property type.
-DoCmd.RunSQL "SELECT property_type, MAX(price) AS highest_price INTO highest_price FROM property_info GROUP BY property_type"
+DoCmd.RunSQL "SELECT property_type, MAX(price) AS highest_price INTO highest_price FROM property_info 
+              GROUP BY property_type"
 End Sub
 
 Private Sub Command3_Click()
 'Looking at the lowest price for each property type.
-DoCmd.RunSQL "SELECT property_type, MIN(price) AS lowest_price INTO lowest_price FROM property_info GROUP BY property_type"
+DoCmd.RunSQL "SELECT property_type, MIN(price) AS lowest_price INTO lowest_price FROM property_info 
+              GROUP BY property_type"
 End Sub
 
 Private Sub Command4_Click()
 'Looking at the average price for each property type.
-DoCmd.RunSQL "SELECT property_type, AVG(price) AS average_price INTO average_price FROM property_info GROUP BY property_type"
+DoCmd.RunSQL "SELECT property_type, AVG(price) AS average_price INTO average_price FROM property_info 
+              GROUP BY property_type"
 End Sub
 
 Private Sub Command5_Click()
 'Looking at the number of available and unavailable properties
-DoCmd.RunSQL "SELECT has_availability, COUNT(has_availability) AS number_of_properties, ROUND(number_of_properties / total_property * 100, 2) AS percentage 
-              INTO property_availability FROM property_info GROUP BY has_availability"
+DoCmd.RunSQL "SELECT has_availability, COUNT(has_availability) AS number_of_properties, 
+              ROUND(number_of_properties / total_property * 100, 2) AS percentage INTO property_availability 
+              FROM property_info GROUP BY has_availability"
 End Sub
 
 Private Sub Command6_Click()
 'Looking at within the available properties, how many accomodate <=2 people
-DoCmd.RunSQL "SELECT COUNT(accommodates) AS availability_accommodates INTO availability_accommodates FROM property_info HAVING accommodates <= 2 AND has_availability = 't'"
+DoCmd.RunSQL "SELECT COUNT(accommodates) AS availability_accommodates INTO availability_accommodates 
+              FROM property_info HAVING accommodates <= 2 AND has_availability = 't'"
 End Sub
 
 
@@ -136,19 +154,24 @@ End Sub
 
 Private Sub Command1_Click()
 'Looking at the top 1000 properties with the highest customer review score rating
-DoCmd.RunSQL "SELECT TOP 1000 id, host_id, review_scores_rating INTO top_properties FROM review_info ORDER BY review_scores_rating DESC"
+DoCmd.RunSQL "SELECT TOP 1000 id, host_id, review_scores_rating INTO top_properties FROM review_info 
+              ORDER BY review_scores_rating DESC"
 End Sub
 
 Private Sub Command2_Click()
 'Looking at the average rating for each rating category
-DoCmd.RunSQL "SELECT ROUND(AVG(review_scores_accuracy),2) AS accuracy, ROUND(AVG(review_scores_cleanliness),2) AS cleanliness, ROUND(AVG(review_scores_checkin),2) AS checkin, 
-              ROUND(AVG(review_scores_communication),2) AS communication, ROUND(AVG(review_scores_location),2) AS location INTO average_by_category FROM review_info"
+DoCmd.RunSQL "SELECT ROUND(AVG(review_scores_accuracy),2) AS accuracy, ROUND(AVG(review_scores_cleanliness),2) 
+              AS cleanliness, ROUND(AVG(review_scores_checkin),2) AS checkin, 
+              ROUND(AVG(review_scores_communication),2) AS communication, ROUND(AVG(review_scores_location),2) 
+              AS location INTO average_by_category FROM review_info"
 End Sub
 
 Private Sub Command3_Click()
 'Looking at the average rating for each property
-DoCmd.RunSQL "SELECT id, host_id, number_of_reviews, review_scores_rating, (review_scores_accuracy + review_scores_cleanliness + review_scores_checkin + review_scores_communication 
-              + review_scores_location)/ 5 AS average_review INTO property_avg_review FROM review_info"
+DoCmd.RunSQL "SELECT id, host_id, number_of_reviews, review_scores_rating, 
+              (review_scores_accuracy + review_scores_cleanliness + review_scores_checkin 
+              + review_scores_communication + review_scores_location)/ 5 AS average_review 
+              INTO property_avg_review FROM review_info"
 End Sub
 
 
@@ -156,23 +179,27 @@ End Sub
 
 Private Sub Command3_Click()
 'Looking at the number of superhosts with review scores rating lower than 90
-DoCmd.RunSQL "SELECT host_id, host_name, host_is_superhost, review_scores_rating INTO superhost_review_rating FROM unique_host_info AS h INNER JOIN review_info AS r ON h.id=r.host_id 
+DoCmd.RunSQL "SELECT host_id, host_name, host_is_superhost, review_scores_rating INTO superhost_review_rating 
+              FROM unique_host_info AS h INNER JOIN review_info AS r ON h.id=r.host_id 
               WHERE host_is_superhost='t' AND review_scores_rating<90 ORDER BY review_scores_rating"
 End Sub
 
 Private Sub Command4_Click()
 'Looking at the average review scores rating for each property type
-DoCmd.RunSQL "SELECT property_type, AVG(review_scores_rating) INTO type_avg_rating FROM property_info AS p INNER JOIN review_info AS r ON p.id=r.id GROUP BY property_type"
+DoCmd.RunSQL "SELECT property_type, AVG(review_scores_rating) INTO type_avg_rating FROM property_info AS p 
+              INNER JOIN review_info AS r ON p.id=r.id GROUP BY property_type"
 End Sub
 
 Private Sub Command8_Click()
 'Looking at the number of properties each host posted within the current month
-DoCmd.RunSQL "SELECT host_id, MAX(host_name) AS name, COUNT(host_id) AS number_of_properties INTO number_of_properties FROM unique_host_info AS h INNER JOIN property_info AS p 
+DoCmd.RunSQL "SELECT host_id, MAX(host_name) AS name, COUNT(host_id) AS number_of_properties 
+              INTO number_of_properties FROM unique_host_info AS h INNER JOIN property_info AS p 
               ON h.id=p.host_id GROUP BY host_id"
 End Sub
 
 Private Sub Command9_Click()
-'Looking at a list of host's response time and review scores of communication ordered by review scores of communication
-DoCmd.RunSQL "SELECT host_id, host_name, host_response_time, review_scores_communication INTO response_review_communication FROM unique_host_info AS h INNER JOIN review_info AS r 
+'Looking at a list of host's response time and review scores communication ordered by review scores communication
+DoCmd.RunSQL "SELECT host_id, host_name, host_response_time, review_scores_communication 
+              INTO response_review_communication FROM unique_host_info AS h INNER JOIN review_info AS r 
               ON h.id=r.host_id ORDER BY review_scores_communication DESC"
 End Sub
