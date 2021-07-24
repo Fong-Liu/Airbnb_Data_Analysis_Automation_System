@@ -74,7 +74,7 @@ DoCmd.RunSQL "SELECT host_response_time, COUNT(host_response_time) AS number_of_
 End Sub
 
 Private Sub Command4_Click()
-'Allowing users to view the property_info table by a preferred order with user input
+'Allowing users to view the unique_host_info table by a preferred order with user input
 DoCmd.RunSQL "SELECT * INTO view_by_order FROM unique_host_info ORDER BY " + Forms!host_analysis!Text5
 End Sub
 
